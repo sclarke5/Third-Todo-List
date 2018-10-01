@@ -15,6 +15,14 @@
         color: white;
         font-size: 1.5rem;
       }
+      .hero {
+        background-color: rgba(3, 3, 3, 0.5);
+        min-height: 100vh;
+        min-width: 100vw;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+      }
       h1 {
         margin-top: 10rem;
         margin-bottom: 0px;
@@ -22,21 +30,94 @@
       .lead {
         font-size: 2rem;
       }
+      ul {
+        list-style: none;
+        margin-top: 2rem;
+        border-top: 2px solid white;
+        /* display: none; */
+      }
+      li {
+        border-bottom: 1px solid white;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+      input[type=checkbox] {
+        float: right;
+        height: 20px;
+        width: 20px;
+        border: 1px solid white;
+      }
+      .footer {
+        position: absolute;
+        bottom: 0;
+        font-size: 13px;
+      }
     </style>
   </head>
 
 
   <body>
-    <div class="container">
-      <h1 class="text-center display-1">TodoList</h1>
-      <p class="lead text-center">A Simple TodoList</p>
-      <div class="row">
-        <form class="col-8 mx-auto">
-          <div class="input-group">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"><span><button type="submit" class="btn btn-primary">Submit</button></span>
+    <div class="hero">
+      <div class="container">
+        <h1 class="text-center display-1">TodoList</h1>
+        <p class="lead text-center">A Simple TodoList</p>
+          <div class="row">
+            <form id="form" class="col-8 mx-auto">
+              <div class="input-group">
+                <input class="form-control" id="input" aria-describedby="emailHelp" placeholder="What to do?">
+                <span>
+                  <button id="subbutton" type="submit" class="btn btn-primary">Submit</button>
+                </span>
+              </div>
+            </form>
           </div>
-        </form>
+
+        <div class="row">
+            <ul id="list" class="list col-8 mx-auto">
+              <li>3:00pm - Learn javascript<input type="checkbox" aria-label="Checkbox for following text input"></li>
+              <li>4:00pm - Crack brew<input type="checkbox" aria-label="Checkbox for following text input"></li>
+              <li>5:00pm - Fuck off<input type="checkbox" aria-label="Checkbox for following text input"></li>
+            </ul>
+        </div>
+
       </div>
     </div>
+
+    <footer class="footer">  Clarkey's &trade; Toronto TodoList
+    </footer>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        //delare variables--see above for what to grab
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
+        var btn = document.getElementById('subbutton');
+        var list = document.getElementById('list');
+        var id = 1;
+
+        //button event listener
+        btn.addEventListener('click', addTodoItem);
+
+
+        //add todo item to list
+        function addTodoItem(){
+          debugger
+          if(input.value === ""){
+            alert('Please enter a value!');
+          }else{
+            if(list.style.borderTop === ""){
+              this.style.borderTop = "2px solid white";
+            }
+            var text = input.value;
+            var item = `<li id="li-${id}">${text}
+                        <input id="box-${id}" class="checkboxes" type="checkbox"></li>`;
+            list.insertAdjacentHTML('beforeend', item);
+            id++;
+            form.reset();
+          }
+        }
+      }
+    </script>
+
   </body>
 </html>
